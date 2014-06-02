@@ -1,0 +1,4 @@
+.build*
+.npm*
+/packages/
+*.DS_Store

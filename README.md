@@ -23,6 +23,8 @@ DDP.loginWithPassword(conn, {username: 'admin'}, 'admin', function (error) {
 });
 ```
 
+On the server, you can also log in synchronously by omitting the callback argument.
+
 NOTE: There is code to handle both pre-0.8.2 Meteor and 0.8.2+ Meteor. However, there are some caveats:
 
 * You can only connect from a pre-0.8.2 app to another pre-0.8.2 app, or from a 0.8.2+ app to another 0.8.2+ app. This is due to the way Meteor implemented the login method change.

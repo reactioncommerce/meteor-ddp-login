@@ -8,10 +8,8 @@ if (Meteor.isServer) {
       }
     }
   });
-}
 
-if (Meteor.isServer) {
-  Tinytest.addAsync('ddp-login - init', function(test, next) {
+  function init() {
     if (Meteor.users.find().count() === 0) {
       // If we have no users, create one initial default user
       Accounts.createUser({
@@ -22,9 +20,27 @@ if (Meteor.isServer) {
         }
       });
     }
+  }
+  init();
 
+  Tinytest.addAsync('ddp-login - init', function(test, next) {
+    init();
     test.equal(Meteor.users.find().count(), 1, "Expected one test user created");
     next();
+  });
+
+  Tinytest.add('ddp-login - sync', function(test) {
+    var conn = DDP.connect(Meteor.absoluteUrl());
+    test.isTrue(!!conn);
+    var result = conn.call('tester');
+    // Result will be false because we are not logged in
+    test.isFalse(result);
+    // Now log in
+    DDP.loginWithPassword(conn, {username: 'admin'}, 'admin');
+    // Now try the method call again as an authenticated user
+    result = conn.call('tester');
+    // Result will be true because we are logged in
+    test.isTrue(result);
   });
 }
 

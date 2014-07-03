@@ -1,5 +1,5 @@
 DDP = DDP || {};
-DDP.loginWithPassword = function loginWithPassword(connection, selector, password, callback) {
+function loginWithPassword(connection, selector, password, callback) {
   callback = callback || function () {};
 
   if (typeof selector === 'string') {
@@ -92,5 +92,18 @@ DDP.loginWithPassword = function loginWithPassword(connection, selector, passwor
       user: selector,
       password: hashPassword(password)
     }]);
+  }
+}
+
+if (Meteor.isClient) {
+  DDP.loginWithPassword = loginWithPassword;
+} else {
+  // Allow synchronous usage by not passing callback on server
+  DDP.loginWithPassword = function ddpLoginWithPassword(connection, selector, password, callback) {
+    if (!callback) {
+      return Meteor._wrapAsync(loginWithPassword)(connection, selector, password);
+    } else {
+      return loginWithPassword(connection, selector, password, callback);
+    }
   }
 }

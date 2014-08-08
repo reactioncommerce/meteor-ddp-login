@@ -1,5 +1,5 @@
 Package.describe({
-  summary: "Meteor package that allows you to securely log in to a non-primary DDP connection from a browser or another server"
+  summary: "Meteor package that allows you to securely log in to a non-primary DDP connection from a browser or another server",
   version: "0.1.0",
   git: "https://github.com/ongoworks/meteor-ddp-login.git"
 });

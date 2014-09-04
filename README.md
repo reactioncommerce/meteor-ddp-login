@@ -1,5 +1,8 @@
 ddp-login
 ==============
+```
+meteor add ongoworks:ddp-login
+```
 
 Meteor package that allows you to securely log in to a non-primary DDP connection from a browser or another server using password authentication.
 

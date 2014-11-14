@@ -101,7 +101,7 @@ if (Meteor.isClient) {
   // Allow synchronous usage by not passing callback on server
   DDP.loginWithPassword = function ddpLoginWithPassword(connection, selector, password, callback) {
     if (!callback) {
-      return Meteor._wrapAsync(loginWithPassword)(connection, selector, password);
+      return Meteor.wrapAsync(loginWithPassword)(connection, selector, password);
     } else {
       return loginWithPassword(connection, selector, password, callback);
     }

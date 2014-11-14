@@ -10,7 +10,7 @@
     ],
     [
       "deps",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "ejson",
@@ -34,7 +34,7 @@
     ],
     [
       "logging",
-      "1.0.0"
+      "1.0.2"
     ],
     [
       "meteor",
@@ -42,7 +42,7 @@
     ],
     [
       "minimongo",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "ordered-dict",
@@ -70,6 +70,6 @@
     ]
   ],
   "pluginDependencies": [],
-  "toolVersion": "meteor-tool@1.0.26",
+  "toolVersion": "meteor-tool@1.0.35",
   "format": "1.0"
 }

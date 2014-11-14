@@ -1,7 +1,7 @@
 Package.describe({
   summary: "Securely log in to a non-primary DDP connection from another browser or server",
   name: "ongoworks:ddp-login",
-  version: "0.1.0",
+  version: "0.2.0",
   git: "https://github.com/ongoworks/meteor-ddp-login.git"
 });
 

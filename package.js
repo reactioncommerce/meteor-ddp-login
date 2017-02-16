@@ -6,12 +6,12 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
-  api.versionsFrom("METEOR@0.9.0")
+  api.versionsFrom(["METEOR@0.9.0","METEOR@1.4.2"]);
   api.use(['livedata', 'underscore', 'srp', 'sha']);
   api.add_files(['ddp-login.js']);
 });
 
 Package.on_test(function(api) {
-  api.use(['accounts-password', 'ongoworks:ddp-login', 'test-helpers', 'tinytest']);
+  api.use(['accounts-password@1.3.4', 'ongoworks:ddp-login@0.2.2', 'test-helpers', 'tinytest', 'ddp', 'sha']);
   api.add_files(["ddp-login-tests.js"]);
 });

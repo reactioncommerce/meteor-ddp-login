@@ -82,6 +82,11 @@ function loginWithPassword(connection, selector, password, callback) {
   // Use new method as of Meteor 0.8.2
   else {
     function hashPassword(password) {
+      // If the password is already in the desired format, we don't need
+      // to hash it.
+      if (password.digest && password.algorithm)
+        return password;
+
       return {
         digest: SHA256(password),
         algorithm: "sha-256"

@@ -30,7 +30,6 @@ if (Meteor.isServer) {
   });
 
   Tinytest.add('ddp-login - sync - with plain password', function(test) {
-  	console.log(Accounts);
     var conn = DDP.connect(Meteor.absoluteUrl());
     test.isTrue(!!conn);
     var result = conn.call('tester');

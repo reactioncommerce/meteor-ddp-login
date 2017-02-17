@@ -41,13 +41,13 @@ function loginWithPassword(connection, selector, password, callback) {
       return;
 
     if (error || !result) {
-      onceUserCallback(error || new Error("No result from call to login"));
+      onceUserCallback(error || new Error("No result from call to login"), null);
     } else if (srp && !srp.verifyConfirmation({HAMK: result.HAMK})) {
-      onceUserCallback(new Error("Server is cheating!"));
+      onceUserCallback(new Error("Server is cheating!"), null);
     } else {
       // Logged in
       connection.setUserId(result.id);
-      onceUserCallback();
+      onceUserCallback(null, result);
     }
   }
 

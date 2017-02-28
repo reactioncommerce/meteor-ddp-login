@@ -29,7 +29,7 @@ if (Meteor.isServer) {
     next();
   });
 
-  Tinytest.add('ddp-login - sync', function(test) {
+  Tinytest.add('ddp-login - sync - with plain password', function(test) {
     var conn = DDP.connect(Meteor.absoluteUrl());
     test.isTrue(!!conn);
     var result = conn.call('tester');
@@ -42,11 +42,30 @@ if (Meteor.isServer) {
     // Result will be true because we are logged in
     test.isTrue(result);
   });
+
+	Tinytest.add('ddp-login - sync - with digest password', function(test) {
+		var conn = DDP.connect(Meteor.absoluteUrl());
+		test.isTrue(!!conn);
+		var result = conn.call('tester');
+		// Result will be false because we are not logged in
+		test.isFalse(result);
+
+		const password = {
+			digest: SHA256('admin'),
+			algorithm: "sha-256"
+		};
+
+		// Now log in
+		DDP.loginWithPassword(conn, {username: 'admin'}, password);
+		// Now try the method call again as an authenticated user
+		result = conn.call('tester');
+		// Result will be true because we are logged in
+		test.isTrue(result);
+	});
 }
 
 Tinytest.addAsync('ddp-login - login', function(test, next) {
   var conn = DDP.connect(Meteor.absoluteUrl());
-
   test.isTrue(!!conn);
 
   conn.call('tester', function (error, result) {

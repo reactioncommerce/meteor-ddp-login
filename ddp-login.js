@@ -41,13 +41,13 @@ function loginWithPassword(connection, selector, password, callback) {
       return;
 
     if (error || !result) {
-      onceUserCallback(error || new Error("No result from call to login"));
+      onceUserCallback(error || new Error("No result from call to login"), null);
     } else if (srp && !srp.verifyConfirmation({HAMK: result.HAMK})) {
-      onceUserCallback(new Error("Server is cheating!"));
+      onceUserCallback(new Error("Server is cheating!"), null);
     } else {
       // Logged in
       connection.setUserId(result.id);
-      onceUserCallback();
+      onceUserCallback(null, result);
     }
   }
 
@@ -82,6 +82,11 @@ function loginWithPassword(connection, selector, password, callback) {
   // Use new method as of Meteor 0.8.2
   else {
     function hashPassword(password) {
+      // If the password is already in the desired format, we don't need
+      // to hash it.
+      if (password.digest && password.algorithm)
+        return password;
+
       return {
         digest: SHA256(password),
         algorithm: "sha-256"
